@@ -1,11 +1,12 @@
 extends Control
 
-onready var selection = $Selection
-#onready var option_scene = preload("res://scenes/Interface/Options.tscn")
+@onready var selection = $Selection
 var selected = 0
+
 
 func _ready():
 	select_index(0)
+
 
 func _input(event):
 	if event.is_action_pressed("pause"):
@@ -27,22 +28,31 @@ func _input(event):
 	elif event.is_action_pressed("select"):
 		handle_selection()
 
+
 func unselect_index():
 	for select in selection.get_children():
-		select.get_font("font").outline_size = 0
+		select.add_theme_constant_override("outline_size", 0)
+
 
 func select_index(index):
-	selection.get_child(index).get_font("font").outline_size = 8
+	selected = clampi(index, 0, selection.get_child_count() - 1)
+	selection.get_child(selected).add_theme_constant_override("outline_size", 8)
+
 
 func handle_selection():
-	if selected == 0:
-		get_tree().paused = false
-		visible = false
-	elif selected == 1:
-		pass
-	else:
-		handle_save()
-		get_tree().quit()
-
-func handle_save():
-	pass
+	var selected_item = selection.get_child(selected)
+	match selected_item.name:
+		"Continue":
+			get_tree().paused = false
+			visible = false
+		"Options":
+			pass
+		"RestartCheckpoint":
+			visible = false
+			LevelManager.restart_checkpoint()
+		"RestartLevel":
+			LevelManager.restart_level()
+		"SaveAndExit":
+			LevelManager.persist_run()
+			SaveManager.save_settings()
+			LevelManager.go_to_menu()

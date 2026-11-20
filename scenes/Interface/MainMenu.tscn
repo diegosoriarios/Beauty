@@ -1,54 +1,18 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/Beholden/Beholden-Medium.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/musics/intro.mp3" type="AudioStream" id=3]
-[ext_resource path="res://assets/musics/intro-2.mp3" type="AudioStream" id=4]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/Beholden/Beholden-Medium.ttf" type="FontFile" id=2]
+[ext_resource path="res://assets/musics/intro.mp3" type="AudioStreamMP3" id=3]
+[ext_resource path="res://assets/musics/intro-2.mp3" type="AudioStreamMP3" id=4]
 
-[sub_resource type="DynamicFont" id=1]
-size = 36
-outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
-font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 36
-outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
-font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 36
-outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
-font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=4]
-size = 36
-outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
-font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=5]
-size = 36
-outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
-font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=6]
-size = 36
-outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
-font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=7]
-size = 36
-outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
-font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=8]
-size = 36
-outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
-font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=9]
-size = 36
-outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
-font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=10]
 resource_name = "credits-main"
@@ -59,8 +23,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( -1024, 0 ), Vector2( 0, 0 ) ]
 }
@@ -74,8 +38,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( -1024, 0 ) ]
 }
@@ -88,8 +52,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 1024, 0 ) ]
 }
@@ -102,15 +66,20 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1024, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="DynamicFont" id=14]
-size = 48
-font_data = ExtResource( 2 )
+
+[sub_resource type="AnimationLibrary" id=1004]
+_data = {
+"credits-main": SubResource( 10 ),
+"main-credits": SubResource( 11 ),
+"main-options": SubResource( 12 ),
+"options-main": SubResource( 13 )
+}
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -122,70 +91,114 @@ __meta__ = {
 
 [node name="Main" type="VBoxContainer" parent="."]
 anchor_bottom = 1.0
-margin_left = 61.0
-margin_top = 243.0
-margin_right = 462.0
-margin_bottom = -81.0
+offset_left = 61.0
+offset_top = 243.0
+offset_right = 462.0
+offset_bottom = -81.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Start" type="Control" parent="Main"]
-margin_right = 401.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 10, 50 )
+[node name="Continue" type="Control" parent="Main"]
+offset_right = 401.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 10, 50 )
 
-[node name="Label" type="Label" parent="Main/Start"]
-margin_right = 401.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-custom_fonts/font = SubResource( 1 )
-text = "Iniciar"
+[node name="Label" type="Label" parent="Main/Continue"]
+offset_right = 401.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 100, 50 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
+text = "Continuar"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="NewGame" type="Control" parent="Main"]
+offset_top = 54.0
+offset_right = 401.0
+offset_bottom = 104.0
+custom_minimum_size = Vector2( 100, 50 )
+
+[node name="Label" type="Label" parent="Main/NewGame"]
+offset_right = 401.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 100, 50 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
+text = "Novo Jogo"
+
+[node name="LevelSelect" type="Control" parent="Main"]
+offset_top = 108.0
+offset_right = 401.0
+offset_bottom = 158.0
+custom_minimum_size = Vector2( 100, 50 )
+
+[node name="Label" type="Label" parent="Main/LevelSelect"]
+offset_right = 401.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 100, 50 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
+text = "Niveis"
 
 [node name="Options" type="Control" parent="Main"]
-margin_top = 54.0
-margin_right = 401.0
-margin_bottom = 104.0
-rect_min_size = Vector2( 100, 50 )
+offset_top = 162.0
+offset_right = 401.0
+offset_bottom = 212.0
+custom_minimum_size = Vector2( 100, 50 )
 
 [node name="Label" type="Label" parent="Main/Options"]
-margin_right = 401.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-custom_fonts/font = SubResource( 2 )
+offset_right = 401.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 100, 50 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
 text = "Configurar"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Credits" type="Control" parent="Main"]
-margin_top = 108.0
-margin_right = 401.0
-margin_bottom = 158.0
-rect_min_size = Vector2( 100, 50 )
+offset_top = 108.0
+offset_right = 401.0
+offset_bottom = 158.0
+custom_minimum_size = Vector2( 100, 50 )
 
 [node name="Label" type="Label" parent="Main/Credits"]
-margin_left = 1.94348
-margin_right = 402.943
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-custom_fonts/font = SubResource( 3 )
+offset_left = 1.94348
+offset_right = 402.943
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 100, 50 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
 text = "Creditos"
 
 [node name="Exit" type="Control" parent="Main"]
-margin_top = 162.0
-margin_right = 401.0
-margin_bottom = 212.0
-rect_min_size = Vector2( 100, 50 )
+offset_top = 162.0
+offset_right = 401.0
+offset_bottom = 212.0
+custom_minimum_size = Vector2( 100, 50 )
 
 [node name="Label" type="Label" parent="Main/Exit"]
-margin_right = 401.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
-custom_fonts/font = SubResource( 4 )
+offset_right = 401.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 100, 50 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
 text = "Sair"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -193,39 +206,45 @@ __meta__ = {
 
 [node name="Options" type="VBoxContainer" parent="."]
 anchor_bottom = 1.0
-margin_left = 1180.0
-margin_top = 243.0
-margin_right = 1901.0
-margin_bottom = -21.0
+offset_left = 1180.0
+offset_top = 243.0
+offset_right = 1901.0
+offset_bottom = -21.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Fullscreen" type="Control" parent="Options"]
-margin_right = 721.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 100, 50 )
+offset_right = 721.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 100, 50 )
 
 [node name="Label" type="CheckButton" parent="Options/Fullscreen"]
 anchor_right = 1.0
-margin_bottom = 45.0
-custom_fonts/font = SubResource( 5 )
+offset_bottom = 45.0
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
 text = "Fullscreen"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MusicVolume" type="Control" parent="Options"]
-margin_top = 54.0
-margin_right = 721.0
-margin_bottom = 104.0
-rect_min_size = Vector2( 100, 50 )
+offset_top = 54.0
+offset_right = 721.0
+offset_bottom = 104.0
+custom_minimum_size = Vector2( 100, 50 )
 
 [node name="Label" type="Label" parent="Options/MusicVolume"]
-margin_top = 6.0
-margin_right = 223.0
-margin_bottom = 43.0
-custom_fonts/font = SubResource( 6 )
+offset_top = 6.0
+offset_right = 223.0
+offset_bottom = 43.0
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
 text = "Volume Musica"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -236,24 +255,27 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -300.0
-margin_top = -8.0
-margin_bottom = 8.0
+offset_left = -300.0
+offset_top = -8.0
+offset_bottom = 8.0
 value = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="EffectsVolume" type="Control" parent="Options"]
-margin_top = 108.0
-margin_right = 721.0
-margin_bottom = 158.0
-rect_min_size = Vector2( 0, 50 )
+offset_top = 108.0
+offset_right = 721.0
+offset_bottom = 158.0
+custom_minimum_size = Vector2( 0, 50 )
 
 [node name="Label" type="Label" parent="Options/EffectsVolume"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 7 )
+offset_right = 40.0
+offset_bottom = 14.0
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
 text = "Volume Efeitos"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -264,39 +286,42 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -300.0
-margin_bottom = 16.0
+offset_left = -300.0
+offset_bottom = 16.0
 value = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Save" type="Control" parent="Options"]
-margin_top = 162.0
-margin_right = 721.0
-margin_bottom = 212.0
-rect_min_size = Vector2( 0, 50 )
+offset_top = 162.0
+offset_right = 721.0
+offset_bottom = 212.0
+custom_minimum_size = Vector2( 0, 50 )
 
 [node name="Label" type="Label" parent="Options/Save"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -360.5
-margin_top = -50.0
-margin_right = 360.5
-rect_min_size = Vector2( 0, 50 )
-custom_fonts/font = SubResource( 8 )
+offset_left = -360.5
+offset_top = -50.0
+offset_right = 360.5
+custom_minimum_size = Vector2( 0, 50 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
 text = "Voltar"
-align = 1
+horizontal_alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Credits" type="Control" parent="."]
-margin_left = -1024.0
-margin_top = 485.0
-margin_bottom = 601.0
+offset_left = -1024.0
+offset_top = 485.0
+offset_bottom = 601.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -313,11 +338,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -46.0
-margin_top = -18.5
-margin_right = 46.0
-margin_bottom = 18.5
-custom_fonts/font = SubResource( 9 )
+offset_left = -46.0
+offset_top = -18.5
+offset_right = 46.0
+offset_bottom = 18.5
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
 text = "Voltar"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -333,40 +361,41 @@ autoplay = true
 stream = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/credits-main = SubResource( 10 )
-anims/main-credits = SubResource( 11 )
-anims/main-options = SubResource( 12 )
-anims/options-main = SubResource( 13 )
+libraries = {
+"": SubResource( 1004 )
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
-current = true
+enabled = true
 
 [node name="Settings" type="Label" parent="."]
-margin_left = 1434.0
-margin_top = 78.242
-margin_right = 1639.0
-margin_bottom = 127.242
-custom_fonts/font = SubResource( 14 )
+offset_left = 1434.0
+offset_top = 78.242
+offset_right = 1639.0
+offset_bottom = 127.242
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 48
 text = "Configurar"
-align = 1
+horizontal_alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Settings2" type="Label" parent="."]
-margin_left = -599.669
-margin_top = 78.2422
-margin_right = -394.669
-margin_bottom = 127.242
-custom_fonts/font = SubResource( 14 )
+offset_left = -599.669
+offset_top = 78.2422
+offset_right = -394.669
+offset_bottom = 127.242
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 48
 text = "Créditos
 
 
 
 Game by
 Diego Rios"
-align = 1
+horizontal_alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

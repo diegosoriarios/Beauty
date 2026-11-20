@@ -8,14 +8,14 @@ var difference = 0
 
 const MOVE_SPEED = 10
 
-export(PackedScene) var next_scene
+@export var next_scene: PackedScene
 
 func _ready():
 	pass
 
 func _process(delta):
 	if move_front:
-		yield(get_tree().create_timer(.1), "timeout")
+		await get_tree().create_timer(.1).timeout
 		self.position.x += MOVE_SPEED
 		
 		difference += MOVE_SPEED
@@ -25,7 +25,7 @@ func _process(delta):
 			can_collide = true
 			move_front = false
 	elif move_back:
-		yield(get_tree().create_timer(.1), "timeout")
+		await get_tree().create_timer(.1).timeout
 		self.position.x -= MOVE_SPEED
 		
 		difference += MOVE_SPEED
@@ -38,8 +38,7 @@ func _process(delta):
 func _on_Area2D_body_entered(body):
 	if body.name == "Player" and can_collide:
 		#get_tree().change_scene_to(next_scene)
-		current = true
-		Global.current_position = find_node("Position2D").global_position
+		make_current()
 		#print('aqui')
 		#can_collide = false
 		#move_front = true
