@@ -1,6 +1,6 @@
 extends Control
 
-onready var selection = $Selection
+@onready var selection = $Selection
 #onready var option_scene = preload("res://scenes/Interface/Options.tscn")
 var selected = 0
 
@@ -29,10 +29,10 @@ func _input(event):
 
 func unselect_index():
 	for select in selection.get_children():
-		select.get_font("font").outline_size = 0
+		select.add_theme_constant_override("outline_size", 0)
 
 func select_index(index):
-	selection.get_child(index).get_font("font").outline_size = 8
+	selection.get_child(index).add_theme_constant_override("outline_size", 8)
 
 func handle_selection():
 	if selected == 0:

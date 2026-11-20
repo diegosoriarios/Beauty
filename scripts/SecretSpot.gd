@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var color_rect = $ColorRect
+@onready var color_rect = $ColorRect
 
 func _on_SecretSpot_body_entered(body):
 	if body.name == "Player":

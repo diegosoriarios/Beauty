@@ -1,8 +1,7 @@
 extends Control
 
-onready var selection = $Selection
-onready var world_1 = preload("res://scenes/Levels/World1.tscn")
-onready var setting_scene = preload("res://scenes/Interface/Options.tscn")
+@onready var selection = $Selection
+@onready var world_1 = preload("res://scenes/Levels/World1.tscn")
 var selected = 0
 
 func _ready():
@@ -26,16 +25,16 @@ func _input(event):
 
 func unselect_index():
 	for select in selection.get_children():
-		select.get_node("Label").get_font("font").outline_size = 0
+		select.get_node("Label").add_theme_constant_override("outline_size", 0)
 
 func select_index(index):
-	selection.get_child(index).get_node("Label").get_font("font").outline_size = 8
+	selection.get_child(index).get_node("Label").add_theme_constant_override("outline_size", 8)
 
 func handle_selection():
 	if selected == 0:
-		get_tree().change_scene_to(world_1)
+		get_tree().change_scene_to_packed(world_1)
 	elif selected == 1:
-		get_tree().change_scene_to(setting_scene)
+		pass
 	elif selected == 2:
 		pass
 	elif selected == 3:

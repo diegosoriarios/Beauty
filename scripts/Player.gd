@@ -1,12 +1,12 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 const SCALE = 1
 
-export var snap = false
-export var move_speed = 200
-export var jump_force = -250
-export var gravity = 10
-export var slope_slide_threshold = 50.0
+@export var snap = false
+@export var move_speed = 200
+@export var jump_force = -250
+@export var gravity = 10
+@export var slope_slide_threshold = 50.0
 var floorNormal = Vector2(0, -1)
 
 var canJumpEvenMaybeNotTouchingTheGround = true
@@ -17,9 +17,9 @@ var is_dashing = false
 var can_dash = false
 var dash_is_active = true
 var dash_direction = Vector2()
-export var dash_speed = 500
-export var dash_length = 0.2
-onready var dash_timer = $Timer
+@export var dash_speed = 500
+@export var dash_length = 0.2
+@onready var dash_timer = $Timer
 
 var is_on_rope = false 
 var can_hold_rope = true
@@ -30,12 +30,12 @@ var jump_wall = 20
 
 var its_raining = false
 
-var velocity = Vector2()
-var snapNormal = Vector2.DOWN
-
 func _ready():
-	dash_timer.connect("timeout",self,"dash_timer_timeout")
-	its_raining = get_parent().find_node("RainParticle")
+	dash_timer.timeout.connect(dash_timer_timeout)
+	up_direction = floorNormal
+	if snap:
+		floor_snap_length = 1.0
+	its_raining = get_parent().find_child("RainParticle")
 	if its_raining:
 		move_speed = 50
 		jump_force = -125
@@ -100,12 +100,12 @@ func _physics_process(delta):
 		if isCrouched:
 			$Stand.disabled = true
 			$Crouch.disabled = false
-			$Sprite.scale.y = SCALE#.1
+			$Sprite2D.scale.y = SCALE#.1
 			velocity.x = 0
 		else:
 			$Stand.disabled = false
 			$Crouch.disabled = true
-			$Sprite.scale.y = SCALE#.1
+			$Sprite2D.scale.y = SCALE#.1
 		
 		if (dash_is_active):
 			handle_dash(delta)
@@ -113,24 +113,22 @@ func _physics_process(delta):
 		if is_on_floor():
 			can_dash = true
 			
-		if(is_dashing):
-			velocity = move_and_slide_with_snap(dash_direction, snapNormal, floorNormal)
-			#vSpeed = 0
-			#hSpeed = 0
-		else:
-			velocity = move_and_slide_with_snap(velocity, snapNormal, floorNormal)
+		if is_dashing:
+			velocity = dash_direction
+
+		move_and_slide()
 
 func coyoteTime():
-	yield(get_tree().create_timer(.1), "timeout")
+	await get_tree().create_timer(.1).timeout
 	canJumpEvenMaybeNotTouchingTheGround = false
 	pass
 
 func rememberJumpTime():
-	yield(get_tree().create_timer(.1), "timeout")
+	await get_tree().create_timer(.1).timeout
 	jumpWasPressed = false
 	pass
 
-func handle_dash(var delta):
+func handle_dash(delta):
 	if(Input.is_action_just_pressed("dash") and can_dash and !is_on_floor()):
 		is_dashing = true
 		can_dash = false
@@ -150,11 +148,11 @@ func get_direction_from_input():
 	move_dir.x = -Input.get_action_strength("ui_left") + Input.get_action_strength("ui_right")
 	move_dir.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 		
-	move_dir = move_dir.clamped(1)
+	move_dir = move_dir.limit_length(1)
 	
 	#check if no movement is pressed further enough... then dash towards ur facing position
 	if (move_dir == Vector2(0,0)):
-		if($Sprite.flip_h):
+		if($Sprite2D.flip_h):
 			move_dir.x = -1
 		else:
 			move_dir.x = 1
@@ -173,7 +171,7 @@ func transition_on():
 	set_physics_process(false)
 
 func transition_off():
-	yield(get_tree().create_timer(1), "timeout")
+	await get_tree().create_timer(1).timeout
 	set_physics_process(true)
 
 func hit():
@@ -184,8 +182,8 @@ func handle_rope():
 	if rope != null:
 		$Stand.disabled = true
 		position = rope.global_position
-		rope.applied_force = Vector2(1, 1)
-		velocity -= rope.applied_force
+		rope.constant_force = Vector2(1, 1)
+		velocity -= rope.constant_force
 		
 		var jump = Input.is_action_just_pressed("jump")
 		var left = Input.is_action_pressed("ui_left")
@@ -194,9 +192,9 @@ func handle_rope():
 		var down = Input.is_action_just_pressed("ui_down")
 		
 		if left:
-			rope.applied_force.x -= move_speed
+			rope.constant_force.x -= move_speed
 		if right:
-			rope.applied_force.x += move_speed
+			rope.constant_force.x += move_speed
 		
 		if up:
 			var ropes = rope.get_parent()
@@ -214,7 +212,7 @@ func handle_rope():
 			is_on_rope = false
 			rope = null
 			can_hold_rope = false
-			yield(get_tree().create_timer(.2), "timeout")
+			await get_tree().create_timer(.2).timeout
 			$Stand.disabled = false
 
 func _on_Hold_body_entered(body):
@@ -225,7 +223,7 @@ func _on_Hold_body_entered(body):
 		#set_collision_mask_bit(0, false)
 		#canJumpEvenMaybeNotTouchingTheGround = true
 		#can_jump = true
-		yield(get_tree().create_timer(.4), "timeout")
+		await get_tree().create_timer(.4).timeout
 		is_on_rope = true
 		rope = body
 
@@ -238,7 +236,7 @@ func _on_Hold_body_exited(body):
 		#set_collision_mask_bit(0, true)
 		is_on_rope = false
 		rope = null
-		yield(get_tree().create_timer(.5), "timeout")
+		await get_tree().create_timer(.5).timeout
 		can_hold_rope = true
 
 func handle_animation():
@@ -252,21 +250,21 @@ func handle_animation():
 	var is_on_left_wall = next_to_wall_left()
 	var is_on_right_wall = next_to_wall_right()
 	
-	if lookLeft: $Sprite.flip_h = true
-	elif lookRight: $Sprite.flip_h = false
+	if lookLeft: $Sprite2D.flip_h = true
+	elif lookRight: $Sprite2D.flip_h = false
 	
 	if is_dashing:
-		$Sprite.play("dash")
+		$Sprite2D.play("dash")
 	elif isJumping or !can_jump:
-		$Sprite.play("jump")
+		$Sprite2D.play("jump")
 	elif releaseJump or !next_to_floor():
-		$Sprite.play("falling")
+		$Sprite2D.play("falling")
 	elif is_on_left_wall or is_on_right_wall:
-		$Sprite.play("wall_slide")
+		$Sprite2D.play("wall_slide")
 	elif isWalking and !crouch:
-		$Sprite.play("walk")
+		$Sprite2D.play("walk")
 	else:
-		$Sprite.play("idle")
+		$Sprite2D.play("idle")
 
 func _on_Hold_area_entered(area):
 	if area.is_in_group('cover'):
