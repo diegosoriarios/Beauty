@@ -67,10 +67,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SaveAndExit" type="Label" parent="Pause/Selection"]
+[node name="RestartCheckpoint" type="Label" parent="Pause/Selection"]
 offset_top = 58.0
 offset_right = 125.0
 offset_bottom = 83.0
+theme_override_fonts/font = ExtResource( 3 )
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
+text = "Checkpoint"
+horizontal_alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartLevel" type="Label" parent="Pause/Selection"]
+offset_top = 87.0
+offset_right = 125.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource( 3 )
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
+text = "Nivel"
+horizontal_alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveAndExit" type="Label" parent="Pause/Selection"]
+offset_top = 116.0
+offset_right = 125.0
+offset_bottom = 141.0
 theme_override_fonts/font = ExtResource( 3 )
 theme_override_font_sizes/font_size = 24
 theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )

@@ -39,9 +39,6 @@ func _on_Area2D_body_entered(body):
 	if body.name == "Player" and can_collide:
 		#get_tree().change_scene_to(next_scene)
 		make_current()
-		var marker = find_child("Marker2D")
-		if marker:
-			Global.current_position = marker.global_position
 		#print('aqui')
 		#can_collide = false
 		#move_front = true

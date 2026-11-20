@@ -18,7 +18,8 @@ config/icon="res://icon.png"
 [autoload]
 
 settings="*res://scripts/Loader/GlobalSettings.gd"
-Global="*res://scripts/Loader/Global.gd"
+SaveManager="*res://scripts/Loader/SaveManager.gd"
+LevelManager="*res://scripts/Loader/LevelManager.gd"
 
 [display]
 

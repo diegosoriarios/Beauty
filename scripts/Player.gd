@@ -31,6 +31,7 @@ var jump_wall = 20
 var its_raining = false
 
 func _ready():
+	add_to_group("player")
 	dash_timer.timeout.connect(dash_timer_timeout)
 	up_direction = floorNormal
 	if snap:
@@ -39,6 +40,7 @@ func _ready():
 	if its_raining:
 		move_speed = 50
 		jump_force = -125
+	LevelManager.register_player(self)
 
 func _physics_process(delta):
 	handle_animation()
@@ -175,8 +177,40 @@ func transition_off():
 	set_physics_process(true)
 
 func hit():
-	global_position = Global.current_position
-	Global.total_deaths += 1
+	LevelManager.kill_player()
+
+func enter_death() -> void:
+	is_dashing = false
+	is_on_rope = false
+	rope = null
+	dash_timer.stop()
+	velocity = Vector2.ZERO
+	visible = false
+	set_physics_process(false)
+	$Hold.monitoring = false
+	$Stand.disabled = true
+	$Crouch.disabled = true
+
+
+func respawn_at(position: Vector2) -> void:
+	global_position = position
+	is_dashing = false
+	isCrouched = false
+	is_on_rope = false
+	rope = null
+	can_hold_rope = true
+	can_jump = true
+	canJumpEvenMaybeNotTouchingTheGround = true
+	jumpWasPressed = false
+	can_dash = true
+	dash_timer.stop()
+	velocity = Vector2.ZERO
+	$Stand.disabled = false
+	$Crouch.disabled = true
+	$Sprite2D.scale.y = SCALE
+	$Hold.monitoring = true
+	visible = true
+	set_physics_process(true)
 
 func handle_rope():
 	if rope != null:

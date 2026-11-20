@@ -3,14 +3,16 @@ extends Node
 var loader_path = ""
 var wait_frames = 0
 var current_scene
-var levels = [
-	"res://scenes/Levels/World1.tscn"
-]
 
 func _ready():
-	var root = get_tree().get_root()
-	current_scene = root.get_child(root.get_child_count() - 1)
-	goto_scene(levels[Global.current_world])
+	current_scene = get_tree().current_scene
+	var requested = LevelManager.consume_pending_load()
+	var level_id: String = requested[0]
+	var level_path := LevelCatalog.get_level_path(level_id)
+	if level_path.is_empty():
+		level_id = LevelCatalog.get_first_level_id()
+		level_path = LevelCatalog.get_level_path(level_id)
+	goto_scene(level_path)
 
 func _process(_delta):
 	if loader_path == "":

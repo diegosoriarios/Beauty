@@ -99,12 +99,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Start" type="Control" parent="Main"]
+[node name="Continue" type="Control" parent="Main"]
 offset_right = 401.0
 offset_bottom = 50.0
 custom_minimum_size = Vector2( 10, 50 )
 
-[node name="Label" type="Label" parent="Main/Start"]
+[node name="Label" type="Label" parent="Main/Continue"]
 offset_right = 401.0
 offset_bottom = 50.0
 custom_minimum_size = Vector2( 100, 50 )
@@ -112,15 +112,47 @@ theme_override_fonts/font = ExtResource( 2 )
 theme_override_font_sizes/font_size = 36
 theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
 theme_override_constants/outline_size = 2
-text = "Iniciar"
+text = "Continuar"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Options" type="Control" parent="Main"]
+[node name="NewGame" type="Control" parent="Main"]
 offset_top = 54.0
 offset_right = 401.0
 offset_bottom = 104.0
+custom_minimum_size = Vector2( 100, 50 )
+
+[node name="Label" type="Label" parent="Main/NewGame"]
+offset_right = 401.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 100, 50 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
+text = "Novo Jogo"
+
+[node name="LevelSelect" type="Control" parent="Main"]
+offset_top = 108.0
+offset_right = 401.0
+offset_bottom = 158.0
+custom_minimum_size = Vector2( 100, 50 )
+
+[node name="Label" type="Label" parent="Main/LevelSelect"]
+offset_right = 401.0
+offset_bottom = 50.0
+custom_minimum_size = Vector2( 100, 50 )
+theme_override_fonts/font = ExtResource( 2 )
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_outline_color = Color( 0.0705882, 0.254902, 0.376471, 1 )
+theme_override_constants/outline_size = 2
+text = "Niveis"
+
+[node name="Options" type="Control" parent="Main"]
+offset_top = 162.0
+offset_right = 401.0
+offset_bottom = 212.0
 custom_minimum_size = Vector2( 100, 50 )
 
 [node name="Label" type="Label" parent="Main/Options"]
